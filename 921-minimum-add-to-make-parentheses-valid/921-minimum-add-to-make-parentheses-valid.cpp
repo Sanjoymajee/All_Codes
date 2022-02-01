@@ -1,22 +1,20 @@
 class Solution {
 public:
     int minAddToMakeValid(string s) {
-        stack<pair<char,int>>st;
+        stack<char>st;
         for(int i=0;i<s.size();i++){
             if(s[i]=='('){
-                st.push({s[i],i});
+                st.push(s[i]);
             }
             else{
                 if(!st.empty()){
-                    s[i]='#';
-                    s[st.top().second]='#';
-                    st.pop();
+                    if(st.top()=='(')st.pop();
+                    else st.push(s[i]);
                 }
+                else st.push(s[i]);
             }
         }
-        // cout<<s;
-        int ans=0;
-        for(int i=0;i<s.size();i++)if(s[i]!='#')ans++;
+        int ans=st.size();
         return ans;
     }
 };
