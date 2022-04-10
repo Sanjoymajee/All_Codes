@@ -10,6 +10,22 @@ public:
                 else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
             }
         }
-        return dp[n][m];
+        string s;
+        int i=n,j=m;
+        while(i>=1 && j>=1){
+           if(text1[i-1]==text2[j-1]){
+                s.push_back(text1[i-1]);
+               i--;j--;
+            }
+            else{
+                if(dp[i-1][j]>dp[i][j-1]){
+                    i--;
+                }
+                else j--;
+            }
+        }
+        reverse(s.begin(),s.end());
+        
+        return s.size();
     }
 };
