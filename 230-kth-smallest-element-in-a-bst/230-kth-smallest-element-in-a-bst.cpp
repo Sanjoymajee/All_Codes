@@ -11,16 +11,19 @@
  */
 class Solution {
 public:
-    vector<int>ans;
-    void dfs(TreeNode* root){
-        if(!root)return;
-        dfs(root->left);
-        ans.push_back(root->val);
-        dfs(root->right);
+    
+    TreeNode* help(TreeNode* root,int k,int &i){
+        if(!root)return root;
+        TreeNode* ans = help(root->left,k,i);
+        if(ans)return ans;
+        if(i==k)return root;
+        i++;
+        return help(root->right,k,i);
     }
     
     int kthSmallest(TreeNode* root, int k) {
-        dfs(root);
-        return ans[k-1];
+        int i=1;
+        TreeNode* ans = help(root,k,i);
+        return ans->val;
     }
 };
